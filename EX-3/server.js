@@ -41,6 +41,17 @@ const server = http.createServer((req, res) => {
 
             console.log('Parsed name', name);
 
+            // Bonus 1: validate input
+
+            if(!name || name.trim()===''){
+                res.writeHead(400, { 'Content-Type': 'text/html' });
+                return res.end(`                
+                <h1>Error</h1>
+                <p>Name cannot be empty.</p>
+                <a href="/contact">Go Back</a>
+                `);
+            }
+
             // Write into file (use append here)
             fs.appendFile('submissions.txt', name + '\n',(err) => {
                 if (err){
